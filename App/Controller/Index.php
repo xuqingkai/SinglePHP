@@ -16,30 +16,14 @@ class Index extends BaseController
 {
     public function Index()
     {
-        // $this->display();
-        // Cache::set('Controller','Index');
-        // dump(Cache::get('Controller'));
-        // // Log::notice('in plugins');
-        // dump(Config::get('LOG_LEVEL'));
-        // dump(Config::set('Controller','Index'));
-        // dump(Config::all());
-        // Plugin::trigger('demo');
-    }
-
-    function getSubDirs($dir)
-    {
-        $subdirs = array();
-        if (!$dh = opendir($dir))
-            return $subdirs;
-        $i = 0;
-        while ($f = readdir($dh)) {
-            if ($f == '.' || $f == '..')
-                continue;
-            //如果只要子目录名, path = $f;
-            $subdirs[$i] = $f;
-            $i++;
-        }
-        return $subdirs;
+         $this->display();
+         Cache::set('Controller','Index');
+         dump(Cache::get('Controller'));
+         Log::notice('in plugins');
+         dump(Config::get('LOG_LEVEL'));
+         dump(Config::set('Controller','Index'));
+         dump(Config::all());
+         Plugin::trigger('demo');
     }
 
     public function Upload()

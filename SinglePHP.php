@@ -1,11 +1,5 @@
 <?php
 
-namespace SinglePHP;
-/**
- * SinglePHP-Exp 单php文件精简框架。
- * @author dragonlhp
- * @version 2021-03-20
- */
 /**
  * 打印函数
  * 浏览器友好的变量输出
@@ -18,7 +12,7 @@ namespace SinglePHP;
 function dump($var, $echo = true, $label = null, $strict = true)
 {
     if (PHP_SAPI == 'cli') {
-        print_r($var) . PHP_EOL;
+        print_r($var) ;echo ''. PHP_EOL;
     } else {
         $label = ($label === null) ? '' : rtrim($label) . ' ';
         if (!$strict) {
@@ -44,6 +38,12 @@ function dump($var, $echo = true, $label = null, $strict = true)
             return $output;
     }
 }
+namespace SinglePHP;
+/**
+ * SinglePHP-Exp 单php文件精简框架。
+ * @author dragonlhp
+ * @version 2021-03-20
+ */
 
 /**
  * 自动创建多级目录
@@ -60,6 +60,10 @@ function creatdir($path)
     }
 }
 
+/**
+ * 判断是否是Post请求
+ * @return bool
+ */
 function is_post()
 {
     return $_SERVER['REQUEST_METHOD'] === 'POST';
@@ -817,12 +821,14 @@ class Plugin
         #);
         $plugins = self::get_active_plugins();
         if ($plugins) {
+
             foreach ($plugins as $plugin) {
+
                 //假定每个插件文件夹中包含一个actions.php文件，它是插件的具体实现
-                $plugins_file_name = ROOT_PATH . DIRECTORY_SEPARATOR . 'Plugins' . DIRECTORY_SEPARATOR . $plugin['name'] . DIRECTORY_SEPARATOR . $plugin['name'] . '.php';
+                $plugins_file_name = ROOT_PATH  . 'Plugins' . DIRECTORY_SEPARATOR . $plugin . DIRECTORY_SEPARATOR . $plugin . '.php';
                 if (@file_exists($plugins_file_name)) {
                     include_once($plugins_file_name);
-                    $class = '\\Plugins\\' . $plugin['name'];
+                    $class = '\\Plugins\\' . $plugin.'\\'.$plugin;
                     if (class_exists($class)) {
                         //初始化所有插件
                         new $class($this);
@@ -838,7 +844,7 @@ class Plugin
      */
     private static function get_active_plugins()
     {
-        $Plugins_path = ROOT_PATH . DIRECTORY_SEPARATOR . 'Plugins';
+        $Plugins_path = ROOT_PATH .  'Plugins';
         is_dir($Plugins_path) ?: creatdir($Plugins_path);
         $subdirs = [];
         if (!$dh = opendir($Plugins_path))
@@ -847,11 +853,13 @@ class Plugin
         while ($f = readdir($dh)) {
             if ($f == '.' || $f == '..')
                 continue;
-            $Plugin_path = $Plugins_path . DIRECTORY_SEPARATOR . $f . DIRECTORY_SEPARATOR . 'info.php';
-            if (file_exists($Plugin_path)) {
-                $subdirs[$i] = require $Plugin_path;
-                $i++;
-            }
+//
+//            $Plugin_path = $Plugins_path . DIRECTORY_SEPARATOR . $f . DIRECTORY_SEPARATOR . 'info.php';
+//            if (file_exists($Plugin_path)) {
+//                $subdirs[$i] = require $Plugin_path;
+//                $i++;
+//            }
+            $subdirs[$i] = $f;
         }
         return $subdirs;
     }
@@ -897,6 +905,19 @@ class Plugin
         }
         #此处做些日志记录方面的东西
         return $result;
+    }
+}
+class Plugin_{
+    const PLUGIN_TITLE = '';
+    const PLUGIN_NAME  = '';
+    //解析函数的参数是pluginManager的引用
+    function __construct(&$plugin)
+    {
+        //注册这个插件
+        //第一个参数是钩子的名称
+        //第二个参数是pluginManager的引用
+        //第三个是插件所执行的方法
+        $plugin->register(static::PLUGIN_NAME, $this, 'action');
     }
 }
 
