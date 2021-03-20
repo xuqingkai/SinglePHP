@@ -1,4 +1,5 @@
 Db
+.idea
 public/static
 public/.htaccess
 public/nginx.htaccess
