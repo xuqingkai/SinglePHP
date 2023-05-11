@@ -175,7 +175,7 @@ function isWin()
 define('IS_CLI', PHP_SAPI == 'cli' ? 1 : 0);
 defined('APP_DEBUG') || define('APP_DEBUG', false);
 if (IS_CLI) defined('ROOT_PATH') || define('ROOT_PATH', getcwd() . DIRECTORY_SEPARATOR);
-else defined('ROOT_PATH') || define('ROOT_PATH', dirname(__FILE__));
+else defined('ROOT_PATH') || define('ROOT_PATH', dirname(__FILE__) . DIRECTORY_SEPARATOR);
 defined('APP_FULL_PATH') || define('APP_FULL_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . Config::get('APP_PATH'));
 defined('CONTROLLER_SUFFIX') || define('CONTROLLER_SUFFIX', '');
 defined('ACTION_SUFFIX') || define('ACTION_SUFFIX', '');
