@@ -1,5 +1,11 @@
 <?php
-
+namespace SinglePHP;
+/**
+ * SinglePHP-Exp 单php文件精简框架。
+ * @author dragonlhp
+ * @version 2021-03-20
+ */
+ 
 /**
  * 打印函数
  * 浏览器友好的变量输出
@@ -38,12 +44,6 @@ function dump($var, $echo = true, $label = null, $strict = true)
             return $output;
     }
 }
-namespace SinglePHP;
-/**
- * SinglePHP-Exp 单php文件精简框架。
- * @author dragonlhp
- * @version 2021-03-20
- */
 
 /**
  * 自动创建多级目录
