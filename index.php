@@ -1,5 +1,4 @@
 <?php
-
 namespace App;
 
 define('APP_DEBUG', TRUE);
